@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/', [HomeController::class, 'homepage'])->name('home.page');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::prefix('admin')->group(function (){
 
     Route::middleware(['guest'])->group(function (){
@@ -22,7 +22,7 @@ Route::prefix('admin')->group(function (){
 
     });
 });
+
 Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
