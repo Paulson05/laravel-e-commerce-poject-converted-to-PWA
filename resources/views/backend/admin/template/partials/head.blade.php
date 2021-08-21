@@ -74,6 +74,7 @@
 
 
 
+
     <link href="{{asset('/backend/assets/css/now-ui-dashboard.minaa26.css?v=1.5.0')}}" rel="stylesheet" />
 
 
@@ -83,6 +84,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{asset('/backend/assets/demo/demo.css')}}" rel="stylesheet" />
 
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -92,5 +94,5 @@
         })(window,document,'script','dataLayer','GTM-NKDMSK6');</script>
     <!-- End Google Tag Manager -->
 
-
+    @yield('css')
 </head>

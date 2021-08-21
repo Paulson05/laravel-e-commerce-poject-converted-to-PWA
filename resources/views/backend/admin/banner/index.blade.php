@@ -1,5 +1,7 @@
 @extends('backend.admin.template.defaults')
+
 @section('title', '| banner')
+
 @section('body')
     <div class="row">
 
@@ -131,12 +133,10 @@
 
 
                     <div class="table-responsive">
-                        <table class="table table-shopping">
+                        <table class="table" id="myTable">
                             <thead class="">
 
                             <th  class="text-center" >
-
-
 
                             </th>
 
@@ -213,95 +213,6 @@
 
                             </tr>
 
-
-
-
-
-
-
-                            <tr>
-                                <td>
-                                    <div class="img-container">
-                                        <img src="../assets/img/balmain.jpg" alt="...">
-                                    </div>
-                                </td>
-                                <td class="td-name">
-                                    <a href="#pants">Jersey T-Shirt</a>
-                                    <br /><small>by Balmain</small>
-                                </td>
-                                <td>
-                                    Black
-                                </td>
-                                <td>
-                                    M
-                                </td>
-                                <td class="td-number">
-                                    <small>€</small>499
-                                </td>
-                                <td class="td-number">
-                                    2
-                                </td>
-                                <td class="td-number">
-                                    <small>€</small>998
-                                </td>
-
-                            </tr>
-
-
-
-
-
-
-
-                            <tr>
-                                <td>
-                                    <div class="img-container">
-                                        <img src="../assets/img/prada.jpg" alt="...">
-                                    </div>
-                                </td>
-                                <td class="td-name">
-                                    <a href="#nothing">Slim-Fit Swim Short</a>
-                                    <br /><small>by Prada</small>
-                                </td>
-                                <td>
-                                    Red
-                                </td>
-                                <td>
-                                    M
-                                </td>
-                                <td class="td-number">
-                                    <small>€</small>200
-                                </td>
-                                <td class="td-number">
-                                    1
-                                </td>
-                                <td class="td-number">
-                                    <small>€</small>799
-                                </td>
-
-                            </tr>
-
-
-
-
-
-
-
-                            <tr>
-                                <td colspan="5">
-                                </td>
-                                <td class="td-total">
-                                    Total
-                                </td>
-                                <td class="td-price">
-                                    <small>€</small>2,346
-                                </td>
-                            </tr>
-
-
-
-
-
                             </tbody>
                         </table>
                     </div>
@@ -317,9 +228,11 @@
 
         </div>
     </div>
+
 @endsection
 @section('scripts')
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js">
     <script>
         $('#lfm').filemanager('image');
     </script>
@@ -335,4 +248,13 @@
     <script>
         CKEDITOR.replace('my-editor', options);
     </script>
+
 @endsection
+@push('datatable')
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
+@endpush

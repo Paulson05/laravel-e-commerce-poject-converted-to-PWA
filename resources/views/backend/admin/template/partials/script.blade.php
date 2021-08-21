@@ -7,7 +7,7 @@
 <script src="{{asset('/backend/assets/js/core/bootstrap.min.js')}}" ></script>
 
 
-<script src="{{asset('/backend/assets/js/plugins/perfect-scrollbar.jquery.min.js')}}" ></script>
+{{--<script src="{{asset('/backend/assets/js/plugins/perfect-scrollbar.jquery.min.js')}}" ></script>--}}
 
 <script src="{{asset('/backend/assets/js/plugins/moment.min.js')}}"></script>
 
@@ -29,10 +29,10 @@
 <script src="{{asset('/backend/assets/js/plugins/bootstrap-selectpicker.js')}}" ></script>
 
 <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-<script src="{{asset('/backend/assets/js/plugins/bootstrap-datetimepicker.js')}}"></script>
+{{--<script src="{{asset('/backend/assets/js/plugins/bootstrap-datetimepicker.js')}}"></script>--}}
 
-<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-<script src="{{asset('/backend/assets/js/plugins/jquery.dataTables.min.js')}}"></script>
+
+
 
 <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 <script src="{{asset('/backend/assets/js/plugins/bootstrap-tagsinput.js')}}"></script>
@@ -311,3 +311,4 @@
     });
 </script>
 @yield('scripts')
+@stack('datatable')
