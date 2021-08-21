@@ -18,7 +18,7 @@ class BannerController extends Controller
     {
         $banners   = Banner::all();
 
-        return view('backend.banner.index')->with([
+        return view('backend.admin.banner.index')->with([
             'banners' => $banners
         ]);
     }

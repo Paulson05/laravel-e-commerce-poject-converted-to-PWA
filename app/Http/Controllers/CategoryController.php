@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::where('is_parent', 1)->orderBY('title', 'ASC')->get();
-        return view('backend.category.index')->with([
+        return view('backend.admin.category.index')->with([
             'categories' => $categories
         ]);
     }

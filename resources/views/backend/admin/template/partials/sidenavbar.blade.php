@@ -7,10 +7,10 @@
 
 
 
-    <li  class="active" >
+    <li  class="{{ Route::currentRouteNamed('admin.dashboard') ? 'active' : '' }}" >
 
 
-        <a href="dashboard.html">
+        <a href="{{route('admin.dashboard')}}">
 
             <i class="now-ui-icons design_app"></i>
 
@@ -19,7 +19,7 @@
 
     </li>
 
-    <li >
+    <li class="" >
 
 
         <a data-toggle="collapse" href="#pagesExamples" >
@@ -34,31 +34,31 @@
         <div class="collapse " id="pagesExamples">
             <ul class="nav">
 
-                <li >
-                    <a href="pages/pricing.html">
+                <li class="{{ Route::currentRouteNamed('admin.banner') ? 'active' : '' }}" >
+                    <a href="{{route('admin.banner')}}">
+                        <span class="sidebar-mini-icon">B</span>
+                        <span class="sidebar-normal">BANNER</span>
+                    </a>
+                </li>
+
+                <li class="{{ Route::currentRouteNamed('brand.index') ? 'active' : '' }}" >
+                    <a href="{{route('brand.index')}}">
+                        <span class="sidebar-mini-icon">B</span>
+                        <span class="sidebar-normal"> Brand </span>
+                    </a>
+                </li>
+
+                <li class="{{ Route::currentRouteNamed('product.index') ? 'active' : '' }}" >
+                    <a href="{{route('product.index')}}">
                         <span class="sidebar-mini-icon">P</span>
-                        <span class="sidebar-normal"> Pricing </span>
+                        <span class="sidebar-normal">Product</span>
                     </a>
                 </li>
 
-                <li >
-                    <a href="pages/rtl.html">
-                        <span class="sidebar-mini-icon">RS</span>
-                        <span class="sidebar-normal"> RTL Support </span>
-                    </a>
-                </li>
-
-                <li >
-                    <a href="pages/invoice.html">
-                        <span class="sidebar-mini-icon">I</span>
-                        <span class="sidebar-normal"> Invoice </span>
-                    </a>
-                </li>
-
-                <li >
-                    <a href="pages/timeline.html">
-                        <span class="sidebar-mini-icon">T</span>
-                        <span class="sidebar-normal"> Timeline </span>
+                <li class="{{ Route::currentRouteNamed('category.index') ? 'active' : '' }}" >
+                    <a href="{{route('category.index')}}">
+                        <span class="sidebar-mini-icon">C</span>
+                        <span class="sidebar-normal">Cateogry</span>
                     </a>
                 </li>
 

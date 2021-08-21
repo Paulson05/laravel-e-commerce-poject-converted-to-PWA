@@ -2,9 +2,11 @@
 
 
 
+
+
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{{url('/backend/assets/img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{url('backend/assets/img/favicon.png')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('/backend/assets/img/apple-icon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('/backend/assets/img/favicon.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>
@@ -30,8 +32,31 @@
     <meta name="description" content="Now UI Dashboard PRO is a beautiful Bootstrap 4 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
 
 
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Now Ui Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Now UI Dashboard PRO is a beautiful Bootstrap 4 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+
+    <meta itemprop="image" content="../../../s3.amazonaws.com/creativetim_bucket/products/72/opt_nudp_thumbnail.jpg">
 
 
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Now Ui Dashboard PRO by Creative Tim">
+
+    <meta name="twitter:description" content="Now UI Dashboard PRO is a beautiful Bootstrap 4 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:image" content="../../../s3.amazonaws.com/creativetim_bucket/products/72/opt_nudp_thumbnail.jpg">
+
+
+    <!-- Open Graph data -->
+    <meta property="fb:app_id" content="655968634437471">
+    <meta property="og:title" content="Now Ui Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="dashboard.html" />
+    <meta property="og:image" content="../../../s3.amazonaws.com/creativetim_bucket/products/72/opt_nudp_thumbnail.jpg"/>
+    <meta property="og:description" content="Now UI Dashboard PRO is a beautiful Bootstrap 4 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
+    <meta property="og:site_name" content="Creative Tim" />
 
 
 
@@ -44,19 +69,19 @@
 
     <!-- CSS Files -->
 
-    <link href="{{url('backend/assets/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('/backend/assets/css/bootstrap.min.css')}}" rel="stylesheet" />
 
 
 
 
-    <link href="{{url('/backend/assets/css/now-ui-dashboard.minaa26.css?v=1.5.0')}}" rel="stylesheet" />
+    <link href="{{asset('/backend/assets/css/now-ui-dashboard.minaa26.css?v=1.5.0')}}" rel="stylesheet" />
 
 
 
 
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{url('/backend/assets/demo/demo.css')}}" rel="stylesheet" />
+    <link href="{{asset('/backend/assets/demo/demo.css')}}" rel="stylesheet" />
 
 
     <!-- Google Tag Manager -->
