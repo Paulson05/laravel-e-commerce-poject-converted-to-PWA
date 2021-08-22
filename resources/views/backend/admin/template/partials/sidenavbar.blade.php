@@ -34,8 +34,8 @@
         <div class="collapse " id="pagesExamples">
             <ul class="nav">
 
-                <li class="{{ Route::currentRouteNamed('admin.banner') ? 'active' : '' }}" >
-                    <a href="{{route('admin.banner')}}">
+                <li class="{{ Route::currentRouteNamed('banner.index') ? 'active' : '' }}" >
+                    <a href="{{route('banner.index')}}">
                         <span class="sidebar-mini-icon">B</span>
                         <span class="sidebar-normal">BANNER</span>
                     </a>

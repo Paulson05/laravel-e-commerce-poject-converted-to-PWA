@@ -30,85 +30,92 @@
 
 
 
-                                <div class="row">
+                                <form method="POST" action="{{route('banner.store')}}" >
+                                    @csrf
 
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <strong>Title</strong>
-                                            <input type="text" name="title" class="title form-control" placeholder="email" value="{{old('title')}}">
+                                    <div class="row">
+
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <strong>Title</strong>
+                                                <input type="text" name="title" class="title form-control" placeholder="email" value="{{old('title')}}">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <strong>Condition:</strong>
+
+                                                <select class="form-control" name="Condition">
+                                                    <option>---select condition---</option>
+
+                                                    <option value=""></option>
+
+                                                </select>
+                                            </div>
 
                                         </div>
 
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <strong>Category:</strong>
-
-                                            <select class="form-control" name="category_id">
-                                                <option>---select category---</option>
-
-                                                <option value=""></option>
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                       <div class="form-group">
-                                          <label>description</label>
-                                           <div class="input-group">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>photo</label>
+                                                <div class="input-group">
                                                <span class="input-group-btn">
-                                                 <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                                 <a id="lfm" data-input="thumbnail"  data-preview="holder" class="btn btn-primary">
                                                    <i class="fa fa-picture-o"></i> Choose
                                                  </a>
                                                </span>
-                                               <input id="thumbnail" class="form-control" type="text" name="filepath">
-                                           </div>
-                                           <img id="holder" style="margin-top:15px;max-height:200px;">
-                                       </div>
-                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <strong>Condiction</strong>
+                                                    <input id="thumbnail" class="form-control" type="text"  name="photo">
+                                                </div>
+                                                <img id="holder" style="margin-top:15px;max-height:200px;">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <strong>condition</strong>
 
-                                            <select class="form-control" name="category_id">
-                                                <option>---select condition---</option>
+                                                <select class="form-control" name="condition">
+                                                    <option>---select condition---</option>
 
-                                                <option value=""></option>
+                                                    <option value="">banner</option>
+                                                    <option value="">promo</option>
 
-                                            </select>
+
+                                                </select>
+
+                                            </div>
 
                                         </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <strong>Status</strong>
 
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <strong>Status</strong>
+                                                <select class="form-control" name="status">
+                                                    <option>---select category---</option>
 
-                                            <select class="form-control" name="category_id">
-                                                <option>---select category---</option>
+                                                    <option value="">Active</option>
+                                                    <option value="">Inactive</option>
 
-                                                <option value=""></option>
+                                                </select>
+                                            </div>
 
-                                            </select>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>body</strong>
+                                                <textarea id="my-editor" cols="30" rows="4" name="content" class="form-control"></textarea>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 text-left">
+                                            <button type="submit" class="add_post btn btn-primary">Post</button>
                                         </div>
 
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>body</strong>
-                                            <textarea id="my-editor" cols="30" rows="4" name="content" class="form-control"></textarea>
-                                        </div>
-
 
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 text-left">
-                                        <button type="submit" class="add_post btn btn-primary">Post</button>
-                                    </div>
-
-
-                                </div>
+                                </form>
 
 
 
@@ -137,82 +144,77 @@
                             <thead class="">
 
                             <th  class="text-center" >
+                              S/N
+                            </th>
+
+                            <th >
+                                title
 
                             </th>
 
                             <th >
 
-                                Product
+                             slug
 
                             </th>
 
+
+                            <th  class="text-right" >
+                                description
+                            </th>
                             <th >
-
-                                Color
-
+                                photo
                             </th>
 
-                            <th >
 
-                                Size
-
+                            <th  class="text-right" >
+                                  condition
                             </th>
 
                             <th  class="text-right" >
-
-                                Price
-
-                            </th>
-
-                            <th  class="text-right" >
-
-                                Qty
-
-                            </th>
-
-                            <th  class="text-right" >
-
-                                Amount
-
+                                status
                             </th>
 
 
                             </thead>
                             <tbody>
 
+                            @forelse($banners as $banner)
 
 
+                                <tr>
+                                    <td>
+                                        <div class="img-container">
+                                            <img src="../assets/img/saint-laurent.jpg" alt="...">
+                                        </div>
+                                    </td>
+                                    <td class="td-name">
 
+                                    {{$loop->iteration}}
+                                    <td>
+                                        {{$banner->title}}
+                                    </td>
+                                    <td>
+                                        {{$banner->slug}}
+                                    </td>
+                                    <td>
+                                        <img src="{{$banner->photo}}" style="max-height: 190px; max-width: 120px">
+                                    </td>
+                                    <td class="td-number">
 
+                                        {{Substr(strip_tags($banner->description), 0, 10)}} {{strlen(strip_tags($banner->description)) > 15 ? "......" : ""}}
+                                    </td>
+                                    <td class="td-number">
+                                        {{$banner->condition}}
+                                    </td>
+                                    <td class="td-number">
+                                        {{$banner->status}}
+                                    </td>
 
-                            <tr>
-                                <td>
-                                    <div class="img-container">
-                                        <img src="../assets/img/saint-laurent.jpg" alt="...">
-                                    </div>
-                                </td>
-                                <td class="td-name">
-                                    <a href="#jacket">Suede Biker Jacket</a>
-                                    <br /><small>by Saint Laurent</small>
-                                </td>
-                                <td>
-                                    Black
-                                </td>
-                                <td>
-                                    M
-                                </td>
-                                <td class="td-number">
-                                    <small>€</small>3,390
-                                </td>
-                                <td class="td-number">
-                                    1
-                                </td>
-                                <td class="td-number">
-                                    <small>€</small>549
-                                </td>
-
-                            </tr>
-
+                                </tr>
+                            @empty
+                                <p class="text-center danger"></p>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -257,4 +259,5 @@
             $('#myTable').DataTable();
         } );
     </script>
+
 @endpush

@@ -28,10 +28,12 @@ Route::prefix('admin')->group(function (){
 });
 
 Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/banner', [BannerController::class, 'index'])->name('admin.banner');
-Route::resource('/admin/brand', BrandController::class)->except('create');
-Route::resource('/admin/product', ProductController::class)->except('create');
-Route::resource('/admin/category', CategoryController::class)->except('create');
+
+Route::resource('brand', BrandController::class)->except('create');
+Route::resource('banner', BannerController::class)->except('create');
+
+Route::resource('product', ProductController::class)->except('create');
+Route::resource('category', CategoryController::class)->except('create');
 
 
 Auth::routes();
