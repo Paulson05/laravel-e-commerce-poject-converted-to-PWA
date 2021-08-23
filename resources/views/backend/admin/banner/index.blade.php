@@ -14,6 +14,7 @@
                       <h4 class="float-left">Banner List</h4>
                     <button class="card-title btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">+</button>
                 </div>
+                @include('backend.admin.template.partials.notification')
                 <div  class="modal  fade pt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -25,8 +26,18 @@
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <ul id="saveform_errList"></ul>
-                                <div id="success_message"></div>
+                                <div class="col-md-12">
+                                    @if($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach($errors->all() as $error)
+                                                    <li>{{$error}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </div>
+
 
 
 
@@ -35,7 +46,7 @@
 
                                     <div class="row">
 
-                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Title</strong>
                                                 <input type="text" name="title" class="title form-control" placeholder="email" value="{{old('title')}}">
@@ -43,43 +54,31 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-xs-12 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <strong>Condition:</strong>
-
-                                                <select class="form-control" name="Condition">
-                                                    <option>---select condition---</option>
-
-                                                    <option value=""></option>
-
-                                                </select>
-                                            </div>
-
-                                        </div>
 
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <label>photo</label>
+                                                <label>description</label>
                                                 <div class="input-group">
                                                <span class="input-group-btn">
-                                                 <a id="lfm" data-input="thumbnail"  data-preview="holder" class="btn btn-primary">
+                                                 <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
                                                    <i class="fa fa-picture-o"></i> Choose
                                                  </a>
                                                </span>
-                                                    <input id="thumbnail" class="form-control" type="text"  name="photo">
+                                                    <input id="thumbnail" class="form-control" type="text" name="photo">
                                                 </div>
                                                 <img id="holder" style="margin-top:15px;max-height:200px;">
                                             </div>
                                         </div>
+
                                         <div class="col-xs-12 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <strong>condition</strong>
 
-                                                <select class="form-control" name="condition">
+                                                <select class="form-control" name="conditions">
                                                     <option>---select condition---</option>
 
-                                                    <option value="">banner</option>
-                                                    <option value="">promo</option>
+                                                    <option value="banner">banner</option>
+                                                    <option value="promo">promo</option>
 
 
                                                 </select>
@@ -94,8 +93,8 @@
                                                 <select class="form-control" name="status">
                                                     <option>---select category---</option>
 
-                                                    <option value="">Active</option>
-                                                    <option value="">Inactive</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
 
                                                 </select>
                                             </div>
@@ -104,7 +103,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>body</strong>
-                                                <textarea id="my-editor" cols="30" rows="4" name="content" class="form-control"></textarea>
+                                                <textarea id="my-editor" cols="30" rows="4" name="description" class="form-control"></textarea>
                                             </div>
 
 
@@ -140,7 +139,7 @@
 
 
                     <div class="table-responsive">
-                        <table class="table" id="myTable">
+                        <table class="table table-bordered" id="myTable" >
                             <thead class="">
 
                             <th  class="text-center" >
@@ -235,6 +234,7 @@
 @section('scripts')
 
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js">
+        <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script>
         $('#lfm').filemanager('image');
     </script>
@@ -255,9 +255,11 @@
 @push('datatable')
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable();
+        <script>
+            $(document).ready( function () {
+            $('#myTable').DataTable()
         } );
+    </script>
     </script>
 
 @endpush

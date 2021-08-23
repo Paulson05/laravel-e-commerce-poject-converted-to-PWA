@@ -1,90 +1,39 @@
+$("#myTable").dataTable({
+"oLanguage": {
+"sProcessing": '<span id="loader"> please wait ...</span>'
+},
+"pagingType" : "simple_number",
+"paging" : true,
+'lengthMenu' : [
+[10, 25, 50],
+[10, 25, 50]
+],
+processing: true,
+serverSide: true,
+"ordering": false,
+ajax: {
+'type': 'POST',
+'url': '{{}}',
+'data': function ( d ) {
 
-<div class="table-responsive">
-    <table class="table" id="myTable">
-        <thead class="">
+},
+"dataFilter" : function ( data){
+var  json = jQuery.parseJSON(data);
+json.draw = json.draw();
+json.recordsFilter = json.total;
+json.data = json.data;
 
-        <th  class="text-center" >
-
-        </th>
-
-        <th >
-
-            Product
-
-        </th>
-
-        <th >
-
-            Color
-
-        </th>
-
-        <th >
-
-            Size
-
-        </th>
-
-        <th  class="text-right" >
-
-            Price
-
-        </th>
-
-        <th  class="text-right" >
-
-            Qty
-
-        </th>
-
-        <th  class="text-right" >
-
-            Amount
-
-        </th>
+return jSON.stringify(json);
+}
 
 
-        </thead>
-        <tbody>
+},
+"columns": [
+{"title": "#", "data" : "sl_no", "name" : "sl_no", "visible" : true, "searchable" : true},
+{"title": "title", "data" : "title", "name" : "title", "visible" : true, "searchable" : true} ,
+{"title": "slug", "data" : "slug", "name" : "slug", "visible" : true, "searchable" : true},
+{"title": "description", "data" : "description", "name" : "description", "visible" : true, "searchable" : true}
+]
 
 
-
-        @forelse($banners as $banner)
-
-
-            <tr>
-                <td>
-                    <div class="img-container">
-                        <img src="../assets/img/saint-laurent.jpg" alt="...">
-                    </div>
-                </td>
-                <td class="td-name">
-
-                {{$loop->iteration}}
-                <td>
-                    {{$banner->title}}
-                </td>
-                <td>
-                    {{$banner->slug}}
-                </td>
-                <td>
-                  <img src="{{$banner->photo}}" style="max-height: 190px; max-width: 120px">
-                </td>
-                <td class="td-number">
-
-                    {{Substr(strip_tags($banner->description), 0, 10)}} {{strlen(strip_tags($banner->description)) > 15 ? "......" : ""}}
-                </td>
-                <td class="td-number">
-                    {{$banner->condition}}
-                </td>
-                <td class="td-number">
-                    {{$banner->status}}
-                </td>
-
-            </tr>
-        @empty
-            <p class="text-center danger"></p>
-        @endforelse
-        </tbody>
-    </table>
-</div>
+});
