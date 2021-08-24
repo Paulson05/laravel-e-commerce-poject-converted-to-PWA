@@ -12,10 +12,13 @@
 
                 <div class="card-header text-right ">
                       <h4 class="float-left">Banner List</h4>
-                    <button class="card-title btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">+</button>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                       +
+                    </button>
                 </div>
                 @include('backend.admin.template.partials.notification')
-                <div  class="modal  fade pt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+                <div   class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <!-- Modal Header -->
@@ -41,7 +44,7 @@
 
 
 
-                                <form method="POST" action="{{route('banner.store')}}" >
+                                <form method="POST" action="{{route('banner.store')}}" id="banner" >
                                     @csrf
 
                                     <div class="row">
@@ -49,7 +52,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Title</strong>
-                                                <input type="text" name="title" class="title form-control" placeholder="email" value="{{old('title')}}">
+                                                <input type="text" name="title" id="title" class="title form-control" placeholder="email" value="{{old('title')}}">
 
                                             </div>
 
@@ -64,7 +67,7 @@
                                                    <i class="fa fa-picture-o"></i> Choose
                                                  </a>
                                                </span>
-                                                    <input id="thumbnail" class="form-control" type="text" name="photo">
+                                                    <input id="thumbnail" class="form-control "  type="text"  name="photo">
                                                 </div>
                                                 <img id="holder" style="margin-top:15px;max-height:200px;">
                                             </div>
@@ -74,7 +77,7 @@
                                             <div class="form-group">
                                                 <strong>condition</strong>
 
-                                                <select class="form-control" name="conditions">
+                                                <select class="form-control" id="conditions"  name="conditions">
                                                     <option>---select condition---</option>
 
                                                     <option value="banner">banner</option>
@@ -90,7 +93,7 @@
                                             <div class="form-group">
                                                 <strong>Status</strong>
 
-                                                <select class="form-control" name="status">
+                                                <select class="form-control status" id="status" name="status">
                                                     <option>---select category---</option>
 
                                                     <option value="active">Active</option>
@@ -103,13 +106,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>body</strong>
-                                                <textarea id="my-editor" cols="30" rows="4" name="description" class="form-control"></textarea>
+                                                <textarea id="description" cols="30" rows="4" name="description" class="form-control"></textarea>
                                             </div>
 
 
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 text-left">
-                                            <button type="submit" class="add_post btn btn-primary">Post</button>
+                                            <button type="submit" class="add_post btn btn-primary add_post">Post</button>
                                         </div>
 
 
@@ -250,7 +253,51 @@
     <script>
         CKEDITOR.replace('my-editor', options);
     </script>
+<script>
+    $(document).ready(function (){
+        $(document).on('click', '.add_post', function (e){
+            e.preventDefault();
 
+            // console.log('click');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url:"{{route('banner.store')}}",
+                data:$("#banner").serialize(),
+                enctype:"multipart/form-data",
+
+                success: function (response){
+                    console.log(response);
+                    if (response.status == 400)
+                    {
+                        $('#saveform_errList').html("");
+                        $('#saveform_errList').addClass("alert  alert-danger");
+                        $.each(response.errors, function (key, err_value) {
+                            $('#saveform_errList').append('<li>'+err_value+'</li>');
+                        })
+                    }
+                    else{
+                        $('#saveform_errList').html("");
+                        $('#success_message').addClass("alert  alert-success");
+                        $('#success_message').text("response.message");
+                        $('#exampleModal').modal("hide");
+                        $('#exampleModal').find("input").val("");
+
+                    }
+
+                    // setInterval('location.reload()', 2000);
+                }
+
+            });
+        });
+    });
+</script>
 @endsection
 @push('datatable')
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
