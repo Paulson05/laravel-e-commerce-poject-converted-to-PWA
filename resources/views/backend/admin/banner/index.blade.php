@@ -24,7 +24,7 @@
                             <!-- Modal Header -->
                             <div class="modal-header">
                                 <h4 class="modal-title">Creat Banner</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
                             </div>
 
                             <!-- Modal body -->
@@ -52,7 +52,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Title</strong>
-                                                <input type="text" name="title" id="title" class="title form-control" placeholder="email" value="{{old('title')}}">
+                                                <input type="text" name="title" id="title" class="title form-control" placeholder="email">
 
                                             </div>
 
@@ -112,7 +112,9 @@
 
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 text-left">
+
                                             <button type="submit" class="add_post btn btn-primary add_post">Post</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         </div>
 
 
@@ -259,6 +261,13 @@
             e.preventDefault();
 
             // console.log('click');
+            var data = {
+                'title' : $('#title').val(),
+                'status' : $('#status').val(),
+                'conditions' : $('#conditions').val(),
+                'photo' : $('#thumbnail').val(),
+                'description' : $('#description').val(),
+            }
 
             $.ajaxSetup({
                 headers: {
@@ -269,11 +278,12 @@
             $.ajax({
                 type: "POST",
                 url:"{{route('banner.store')}}",
-                data:$("#banner").serialize(),
-                enctype:"multipart/form-data",
+                data:data,
+
 
                 success: function (response){
                     console.log(response);
+
                     if (response.status == 400)
                     {
                         $('#saveform_errList').html("");
@@ -288,6 +298,9 @@
                         $('#success_message').text("response.message");
                         $('#exampleModal').modal("hide");
                         $('#exampleModal').find("input").val("");
+                        $('select').find('option').prop("selected", false)
+                        $('#description').val('');
+
 
                     }
 
@@ -296,6 +309,7 @@
 
             });
         });
+
     });
 </script>
 @endsection
