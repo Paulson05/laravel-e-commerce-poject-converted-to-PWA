@@ -22,6 +22,12 @@ class BannerController extends Controller
             'banners' => $banners
         ]);
     }
+    public function fetchData(){
+        $banners = Banner::all();
+        return response([
+            'banners'=>$banners
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -16,6 +16,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                        +
                     </button>
+                    <div id="success_message"></div>
                 </div>
                 @include('backend.admin.template.partials.notification')
                 <div   class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -30,15 +31,8 @@
                             <!-- Modal body -->
                             <div class="modal-body">
                                 <div class="col-md-12">
-                                    @if($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach($errors->all() as $error)
-                                                    <li>{{$error}}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+                                    <ul id="saveform_errList"></ul>
+
                                 </div>
 
 
@@ -113,7 +107,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 text-left">
 
-                                            <button type="submit" class="add_post btn btn-primary add_post">Post</button>
+                                            <button type="submit" class="add_post btn btn-primary add_post">Save</button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         </div>
 
@@ -187,11 +181,7 @@
 
 
                                 <tr>
-                                    <td>
-                                        <div class="img-container">
-                                            <img src="../assets/img/saint-laurent.jpg" alt="...">
-                                        </div>
-                                    </td>
+
                                     <td class="td-name">
 
                                     {{$loop->iteration}}
@@ -209,7 +199,7 @@
                                         {{Substr(strip_tags($banner->description), 0, 10)}} {{strlen(strip_tags($banner->description)) > 15 ? "......" : ""}}
                                     </td>
                                     <td class="td-number">
-                                        {{$banner->condition}}
+                                        {{$banner->conditions}}
                                     </td>
                                     <td class="td-number">
                                         {{$banner->status}}
@@ -256,7 +246,33 @@
         CKEDITOR.replace('my-editor', options);
     </script>
 <script>
+
     $(document).ready(function (){
+
+        fetchbanner();
+        function fetchbanner() {
+            $.ajax({
+                type: "GET",
+                url:"{{route('banner.fetch')}}",
+                dataType:"json",
+                success: function (response) {
+                    // console.log(response.posts);
+
+                    $('tbody').html("");
+                    $.each(response.banners, function (key, item){
+                        $('tbody').append('<tr>\
+                                            <td>'+item.id+'</td>\
+                                           <td>'+item.title+'</td>\
+                                           <td>'+item.conditions+'</td>\
+                                           <td>'+item.phone+'</td>\
+                                           <td>'+item.status+'</td>\
+                                            <td><button type="button"  value="'+item.id+'" class="edit_post btn btn-primary" ><i class="fa fa-edit"></i></button></td>\
+                                              <td><button type="button" value="'+item.id+'"  class="delete_post btn btn-danger" ><i class="fa fa-trash"></i></button></td>\
+                                            </tr>');
+                    });
+                }
+            })
+        }
         $(document).on('click', '.add_post', function (e){
             e.preventDefault();
 
@@ -290,7 +306,7 @@
                         $('#saveform_errList').addClass("alert  alert-danger");
                         $.each(response.errors, function (key, err_value) {
                             $('#saveform_errList').append('<li>'+err_value+'</li>');
-                        })
+                        });
                     }
                     else{
                         $('#saveform_errList').html("");
@@ -300,7 +316,7 @@
                         $('#exampleModal').find("input").val("");
                         $('select').find('option').prop("selected", false)
                         $('#description').val('');
-
+                        fetchbanner();
 
                     }
 
