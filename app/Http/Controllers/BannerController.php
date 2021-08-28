@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
@@ -47,28 +48,42 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $validator = Validator::make($request->all(),[
             'title' => 'string|required',
             'description'=> 'string|nullable',
             'conditions'=>'nullable|in:banner, promo',
             'photo'=> 'required',
             'status'=>'nullable|in:active, inactive',
         ]);
-        $data= $request->all();
-        $slug=Str::slug($request->input('title'));
-        $slug_count=Banner::where('slug', $slug)->count();
-        if ($slug_count){
-            $slug = time(). '_'. $slug;
-        }
-        $data['slug']=$slug;
-
-        $status=Banner::create($data);
-        if ($status){
-            return redirect()->route('banner.index')->with('success', ' data added successfully' );
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
         }
         else{
-            return redirect()->back();
+            $data= $request->all();
+            $slug=Str::slug($request->input('title'));
+            $slug_count=Banner::where('slug', $slug)->count();
+            if ($slug_count){
+                $slug = time(). '_'. $slug;
+            }
+            $data['slug']=$slug;
+
+            $status=Banner::create($data);
+            if ($status){
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'banner added successfully',
+
+                ]);
+            }
+            else{
+                return redirect()->back();
+
+            }
         }
+
 
     }
 
@@ -138,9 +153,16 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banner $banner)
+    public function destroy($id)
     {
-        $banner->delete();
-        return redirect()->back();
+        $post = Banner::find($id);
+        $post->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'post deleted successfully',
+
+        ]);
+
+
     }
 }

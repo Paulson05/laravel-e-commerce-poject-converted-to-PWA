@@ -16,7 +16,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                        +
                     </button>
-                    <div id="success_message"></div>
+
                 </div>
                 @include('backend.admin.template.partials.notification')
                 <div   class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,6 +32,7 @@
                             <div class="modal-body">
                                 <div class="col-md-12">
                                     <ul id="saveform_errList"></ul>
+
 
                                 </div>
 
@@ -128,6 +129,39 @@
                     </div>
 
                 </div>
+                <div  class="modal  fade pt-5" id="example2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Delete Post</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+
+                                <input type="hidden" id="delete_post_id">
+
+                                <h4>are you sure want to delete this data</h4>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="add_post btn btn-outline-secondary" data-dismiss="modal">close</button>
+                                <button type="submit" class="delete_post_btn btn btn-primary delete_post_btn">yes delete</button>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
 
                 <div class="card-body ">
 
@@ -150,11 +184,6 @@
 
                             </th>
 
-                            <th >
-
-                             slug
-
-                            </th>
 
 
                             <th  class="text-right" >
@@ -263,8 +292,9 @@
                         $('tbody').append('<tr>\
                                             <td>'+item.id+'</td>\
                                            <td>'+item.title+'</td>\
-                                           <td>'+item.conditions+'</td>\
+                                           <td>'+item.description+'</td>\
                                            <td>'+item.phone+'</td>\
+                                           <td>'+item.conditions+'</td>\
                                            <td>'+item.status+'</td>\
                                             <td><button type="button"  value="'+item.id+'" class="edit_post btn btn-primary" ><i class="fa fa-edit"></i></button></td>\
                                               <td><button type="button" value="'+item.id+'"  class="delete_post btn btn-danger" ><i class="fa fa-trash"></i></button></td>\
@@ -311,21 +341,68 @@
                     else{
                         $('#saveform_errList').html("");
                         $('#success_message').addClass("alert  alert-success");
-                        $('#success_message').text("response.message");
+                        $('#success_message').text("data added successfully");
                         $('#exampleModal').modal("hide");
                         $('#exampleModal').find("input").val("");
                         $('select').find('option').prop("selected", false)
                         $('#description').val('');
                         fetchbanner();
+                        swal.fire(
+                            'congratulation!',
+                            'banner added successfully',
+                            'success'
+                        )
 
                     }
+
 
                     // setInterval('location.reload()', 2000);
                 }
 
             });
         });
+        $(document).on('click', '.delete_post', function (e){
+            e.preventDefault();
 
+            var post_id  = $(this).val();
+            // alert(post_id);
+
+            $('#delete_post_id').val(post_id);
+
+            $('#example2Modal').modal("show");
+
+        });
+        $(document).on('click', '.delete_post_btn', function (e){
+            e.preventDefault();
+
+
+            var post_id  = $('#delete_post_id').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "DELETE",
+                url:"/banner/"+post_id,
+                success: function (response){
+                    // console.log(response);
+                    $('#success_message').addClass("alert  alert_success");
+                    $('#success_message').text("response.message");
+                    $('#example2Modal').modal("hide");
+                    $('.delete_post_btn').text("yes Delete");
+                    fetchbanner();
+                    swal.fire(
+                        'congratulation!',
+                        'banner deleted successfully',
+                        'success'
+                    )
+                }
+
+            });
+
+        });
     });
 </script>
 @endsection
