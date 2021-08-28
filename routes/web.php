@@ -35,7 +35,7 @@ Route::resource('banner', BannerController::class)->except('create');
 Route::resource('product', ProductController::class)->except('create');
 Route::resource('category', CategoryController::class)->except('create');
 Route::get('/fetchbannerdata', [BannerController::class, 'fetchData'])->name('banner.fetch');
-
+Route::get('edit-post/{id}', [BannerController::class, 'getEdit']);
 
 Auth::routes();
 

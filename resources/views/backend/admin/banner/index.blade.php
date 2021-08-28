@@ -129,6 +129,122 @@
                     </div>
 
                 </div>
+                 <!-- edit modal-->
+
+                <div  class="modal  fade pt-5" id="example3Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Creat Banner</h4>
+
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="col-md-12">
+                                    <ul id="saveform_errList"></ul>
+
+
+                                </div>
+
+
+
+
+                                <form method="POST" action="{{route('banner.store', )}}" id="banner" >
+                                    @csrf
+
+                                    <div class="row">
+                                            <input id="edit_post_id" type="hidden">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>Title</strong>
+                                                <input type="text" name="title" id="edit_title" class="title form-control" placeholder="email" value="">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>description</label>
+                                                <div class="input-group">
+                                               <span class="input-group-btn">
+                                                 <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                                   <i class="fa fa-picture-o"></i> Choose
+                                                 </a>
+                                               </span>
+                                                    <input id="thumbnail" class="form-control edit_photo "  type="text"  name="photo">
+                                                </div>
+                                                <img id="holder" style="margin-top:15px;max-height:200px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <strong>condition</strong>
+
+                                                <select class="form-control" id="edit_conditions"  name="conditions">
+                                                    <option>---select condition---</option>
+
+                                                    <option value="banner">banner</option>
+                                                    <option value="promo">promo</option>
+
+
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <strong>Status</strong>
+
+                                                <select class="form-control status" id="edit_status" name="status">
+                                                    <option>---select category---</option>
+
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>body</strong>
+                                                <textarea id="edit_description" cols="30" rows="4" name="description" class="form-control"></textarea>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 text-left">
+
+                                            <button type="submit" class="add_post btn btn-primary add_post">Save</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- delete model-->
+
                 <div  class="modal  fade pt-5" id="example2Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -361,6 +477,44 @@
 
             });
         });
+        //edit
+
+        $(document).on('click', '.edit_post', function (e){
+            e.preventDefault();
+            let post_id  = $(this).val();
+            // console.log(post_id);
+            $('#example3Modal').modal("show");
+            $.ajax({
+                type: "GET",
+                url:"/edit-post/"+post_id,
+
+                success: function (response) {
+                    console.log(response);
+                    if (response.status == 404){
+                        $('#success_message').html("");
+                        $('#success_message').addClass('alert alert-danger');
+                        $('#success_message').text(response.message);
+
+                    }
+                    else{
+                        $("#edit_title").val(response.post.title);
+                        $("#edit_status").val(response.post.status);
+                        $(".edit_photo").val(response.post.photo);
+                        $("#edit_description").val(response.post.description);
+                        $("#edit_conditions").val(response.post.conditions);
+
+                        $("#edit_post_id").val(post_id);
+                    }
+
+                }
+            });
+
+
+        });
+
+
+        // delete
+
         $(document).on('click', '.delete_post', function (e){
             e.preventDefault();
 

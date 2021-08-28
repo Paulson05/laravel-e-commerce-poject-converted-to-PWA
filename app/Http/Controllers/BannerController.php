@@ -107,14 +107,34 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $banner=Banner::find($id);
-        if($banner){
-            return view('backend.banner.edit',compact('banner'));
-        }
-        else{
-            return back()->with('error');
+        $post=Banner::find($id);
+
+
+        if ($post)
+        {
+            return response()->json([
+                'status' => 200,
+                'post' => $post,
+
+            ]);
         }
     }
+
+    public function getEdit($id)
+    {
+        $post =Banner::find($id);
+
+        if ($post)
+        {
+            return response()->json([
+                'status' => 200,
+                'post' => $post,
+
+            ]);
+        }
+
+    }
+
 
     /**
      * Update the specified resource in storage.
